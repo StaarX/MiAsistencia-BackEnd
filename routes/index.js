@@ -11,6 +11,6 @@ const ControlRA_maestro = require("../api/controllers/ControlRA_maestro");
 const ControlReportesAs = require("../api/controllers/ControlReportesAs");
 
 router.post('/login', ControlLogin.login);
-
+router.get('/maestro', ControlMaestro.obtenerDatos);
 
 module.exports=router;

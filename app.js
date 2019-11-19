@@ -3,6 +3,7 @@ const app=express();
 const path=require('path');
 const morgan=require('morgan');
 const mongoose=require('mongoose');
+const cors = require('cors')
 
 //conectar a la BD
 mongoose.connect('mongodb://localhost/crud-mongo',  { useNewUrlParser: true }  ).
@@ -17,6 +18,7 @@ app.set('port', process.env.PORT || 3000);
 
 //middlewares
 app.use(morgan('dev'));
+app.use(cors());
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 

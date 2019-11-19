@@ -4,16 +4,18 @@ module.exports.login= async function(req,res){
 const datos=req.body;
 console.log("GIGA PENEEEEEEEEEEEEE" + datos.id);
 try {
-    if (await Autenticacion.autenticar(datos)) {
+var condicion=await Autenticacion.autenticar(datos);
+    if (condicion.res=='true') {
         var tokensito;
         if (datos.id.substring(0,2)=='MA') {
-            tokensito=token.generateToken(datos.id,"maestro");
+            tokensito=token.generateToken(datos.id,condicion.nombre,"maestro");
         }
         if (datos.id.substring(0,1)=='A') {
-            tokensito=token.generateToken(datos.id,"alumno")
+            tokensito=token.generateToken(datos.id,condicion.nombre,"alumno")
         }
         res.status(200).json(tokensito);
-    }else{
+    }
+    if(condicion.res=='false'){
         res.status(404).json({message:'La contraseña es incorrecta'});
     }
 } catch (error) {

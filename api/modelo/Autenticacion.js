@@ -6,10 +6,11 @@ module.exports.autenticar = function(datos){
             console.log(result.contraseña);
             if (datos.contraseña==result.contraseña) {
                 console.log("VERDADEROOO");
-              return true;  
+              return {res:'true',
+                      nombre:result.nombre};  
             }else{
                 console.log("FALSOOO");
-              return false;
+              return {res:'false'};
             }
         });
     }
@@ -18,14 +19,14 @@ module.exports.autenticar = function(datos){
             console.log(result.contraseña);
             if (datos.contraseña==result.contraseña) {
                 console.log("VERDADEROOO");
-              return true;  
+                return {res:'true',
+                nombre:result.nombre};    
             }else{
                 console.log("FALSOOO");
-              return false;
+                return {res:'false'};
             }
         });   
     }
-    return false;
 }
 function prometelomaestro(datos){
     var obj=datos

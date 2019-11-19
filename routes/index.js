@@ -1,5 +1,6 @@
 const express=require('express');
 const router=express.Router();
+const token= require("../api/token")
 
 const ControlAlumno = require("../api/controllers/ControlAlumno");
 const ControlAsistencia = require("../api/controllers/ControlAsistencia");
@@ -11,6 +12,8 @@ const ControlRA_maestro = require("../api/controllers/ControlRA_maestro");
 const ControlReportesAs = require("../api/controllers/ControlReportesAs");
 
 router.post('/login', ControlLogin.login);
-router.get('/maestro', ControlMaestro.obtenerDatos);
+router.get('/maestro',token.checkToken, ControlMaestro.obtenerDatos);
+router.get('/maestro/clases',token.checkToken,ControlRA_maestro.obtenerClases);
+router.post('/maestro/iniciarClase',token.checkToken,ControlRA_maestro.iniciarClase);
 
 module.exports=router;

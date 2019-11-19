@@ -1,24 +1,16 @@
 const http=require('http')
 
 module.exports.obtenerMaestro=function(datos){
-    return prometelomaestro(datos).then(function (result) {
-        console.log(result.contraseña);
-        if (datos.contraseña==result.contraseña) {
-            console.log("VERDADEROOO");
-          return true;  
-        }else{
-            console.log("FALSOOO");
-          return false;
-        }
+    return prometelo(datos).then(function (result) {
+        return result;
     });
 }
 
 function prometelo(datos){
-    var obj=datos
     var options={
         hostname: 'localhost',
         port: '3001',
-        path: '/obtenerMaestro/'+obj.id,
+        path: '/obtenerMaestro/'+datos.authData.id,
         method: 'GET'
     }
     return new Promise(function(resolve, reject){ 

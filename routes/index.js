@@ -19,5 +19,7 @@ router.get('/maestro/comprobarClaseIniciada',token.checkToken,ControlRA_maestro.
 router.post('/maestro/registrarAsistencia',token.checkToken,ControlRA_maestro.registrarAsistencia);
 router.post('/maestro/finalizarClase',token.checkToken,ControlRA_maestro.finalizarClase);
 router.post('/maestro/eliminarAsistencia',token.checkToken,ControlRA_maestro.eliminarAsistencia);
+router.get('/estudiante/comprobarClaseIniciada',token.checkToken,ControlRA_alumno.comprobarClaseIniciada);
+router.get('/estudiante/registrarAsistencia',token.checkToken,ControlRA_alumno.registrarAsistencia);
 
 module.exports=router;

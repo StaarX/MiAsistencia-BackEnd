@@ -1,6 +1,56 @@
 const Ram= require("../modelo/RegistrarAsistencia_maestro");
 const token= require("../token");
+module.exports.registrarAsistencia=async function(req,res){
+    var validacion=await token.validateToken(req.token);
+    var body=req.body;
+    console.log(validacion.authData.id);
+    if (validacion.error=='undefined') {
+    try {
+        var resp= await Ram.registrarAsistencia(body.id,validacion.authData.id);
+        console.log(resp);
+        res.status(200).json({message:'OK'});
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+    }else{
+    res.status(404).json(validacion);
+    }
+}
 
+module.exports.eliminarAsistencia=async function(req,res){
+    var validacion=await token.validateToken(req.token);
+    var body=req.body;
+    console.log(validacion.authData.id);
+    if (validacion.error=='undefined') {
+        try {
+            var resp= await Ram.eliminarAsistencia(body.id,validacion.authData.id);
+            console.log(resp);
+            res.status(200).json({message:'OK'});
+        } catch (error) {
+            res.status(500).json(error.message);
+        }
+    }else{
+    res.status(404).json(validacion);
+    }
+    
+}
+module.exports.finalizarClase=async function(req,res){
+    var validacion=await token.validateToken(req.token);
+    var body=req.body;
+    console.log(validacion.authData.id);
+    if (validacion.error=='undefined') {
+        try {
+            var resp= await Ram.finalizarClase(validacion.authData.id);
+            console.log(resp);
+            res.status(200).json({message:'OK'});
+        } catch (error) {
+            res.status(500).json(error.message);
+        }
+    }else{
+    res.status(404).json(validacion);
+    }
+   
+}
 module.exports.comprobarClaseIniciada= async function(req,res){
 var validacion=await token.validateToken(req.token);
     if (validacion.error=='undefined') {

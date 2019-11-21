@@ -9,6 +9,32 @@ weekday[4] = "Thursday";
 weekday[5] = "Friday";
 weekday[6] = "Saturday";
 
+module.exports.registrarAsistencia=async function(idA,idMa){
+    var findeado=await Asistencia.findOne({idmaestro:idMa,estado:'Iniciada'},function(err,obj){
+    });
+    console.log("ENCONTRADOOO: "+findeado);
+    findeado.asistentes.push(idA);
+    var result= await findeado.save();
+    return result;
+}
+module.exports.eliminarAsistencia=async function(idA,idMa){
+    var findeado=await Asistencia.findOne({idmaestro:idMa,estado:'Iniciada'},function(err,obj){
+    });
+    console.log("ENCONTRADOOO: "+findeado);
+    findeado.asistentes.remove(idA);
+    var result= await findeado.save();
+    return result;
+}
+module.exports.finalizarClase=async function(idMa){
+    var findeado=await Asistencia.findOne({idmaestro:idMa,estado:'Iniciada'},function(err,obj){
+    });
+    console.log("ENCONTRADOOO: "+findeado);
+    findeado.estado='Finalizada';
+    var result= await findeado.save();
+    return result;
+}
+
+
 module.exports.comprobarClaseIniciada=async function(id){
     var findeado=await Asistencia.findOne({idmaestro:id,estado:'Iniciada'}, function(err, obj){
     });

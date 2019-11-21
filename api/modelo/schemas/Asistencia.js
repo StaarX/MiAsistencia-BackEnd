@@ -8,7 +8,7 @@ const ClaseSchema= new Schema({
    idmaestro:{type:String, required: true},
    fecha:{type:Date, default: Date.now},
    estado:{type:String, default:'Iniciada'},
-   asistentes:[{type: Schema.ObjectId, ref:'estudiante'}]
+   asistentes:[{type: String}]
 });
 
 module.exports=mongoose.model("Clases",ClaseSchema);

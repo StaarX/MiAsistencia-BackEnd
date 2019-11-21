@@ -6,7 +6,7 @@ const mongoose=require('mongoose');
 const cors = require('cors')
 
 //conectar a la BD
-mongoose.connect('mongodb://localhost/crud-mongo',  { useNewUrlParser: true }  ).
+mongoose.connect('mongodb://localhost/MiAsistencia',  { useNewUrlParser: true }  ).
 then(db=>console.log('Conectado a BD'))
 .catch(err=>console.log(err));
 

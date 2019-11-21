@@ -27,6 +27,9 @@ module.exports.autenticar = function(datos){
             }
         });   
     }
+    if (datos.id.substring(0,1)!=='A' && datos.id.substring(0,2)!=='MA') {
+        return {res:'invalido'}; 
+    }
 }
 function prometelomaestro(datos){
     var obj=datos

@@ -28,7 +28,7 @@ if (validacion.error=='undefined') {
         res.status(403).json({message:'No tienes permiso para acceder a esta funcion'})   
     }else{
         try{
-            res.status(200).json(await Ram.iniciarClase(datos));
+            await Ram.iniciarClase(datos,validacion);
         } catch (error) {
             console.log(error);
             if (error.status=='404') {
@@ -38,7 +38,7 @@ if (validacion.error=='undefined') {
         } 
     }
 }else{
-res.status(404).json(validacion);
+res.status(403).json(validacion);
 }
 
 }

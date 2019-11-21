@@ -4,10 +4,10 @@ const Schema=mongoose.Schema;
 const ClaseSchema= new Schema({
    id:{type: String, required: true},
    nombre:{type: String, required: true},
-   dia:{type:String, required: true},
-   mes:{type:String, required: true},
-   año:{type:String, required: true},
-   asistentes:[{id: String, nombre: String}]
+   idmaestro:{type:String, required: true},
+   fecha:{type:Date, default: Date.now},
+   estado:{type:String, default:'Iniciada'},
+   asistentes:[{type: Schema.ObjectId, ref:'estudiante'}]
 });
 
 module.exports=mongoose.model("Clases",ClaseSchema);

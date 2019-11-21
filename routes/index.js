@@ -16,6 +16,6 @@ router.get('/maestro',token.checkToken, ControlMaestro.obtenerDatos);
 router.get('/maestro/clases',token.checkToken,ControlRA_maestro.obtenerClases);
 router.post('/maestro/iniciarClase',token.checkToken,ControlRA_maestro.iniciarClase);
 router.post ('/maestro/finalizarClase',token.checkToken,ControlRA_maestro.iniciarClase);
-router.get('/maestro/claseActual',token.checkToken,ControlRA_maestro.iniciarClase);
+router.get('/maestro/comprobarClaseIniciada',token.checkToken,ControlRA_maestro.comprobarClaseIniciada)
 
 module.exports=router;

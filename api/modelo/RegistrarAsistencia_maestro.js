@@ -9,6 +9,27 @@ weekday[4] = "Thursday";
 weekday[5] = "Friday";
 weekday[6] = "Saturday";
 
+module.exports.comprobarClaseIniciada=async function(id){
+    var findeado=await Asistencia.findOne({idmaestro:id,estado:'Iniciada'}, function(err, obj){
+    });
+    console.log(findeado);
+    if (findeado!='null') {
+    var clasx= await prometeloClase({id:findeado.id}).then(result=>{
+        return result
+    });
+    var alumnxs= await posteameloAlumnos(JSON.stringify({msg:clasx.alumnosins.toString()})).then(result=>{
+        return result;
+    });
+        return {status:'200',
+                datos:findeado,
+                clasex:clasx,
+                alumnxos:alumnxs};
+    }else{
+        return {status:'403',
+                msg:'No hay clase iniciada'};
+    }
+}
+
 module.exports.obtenerClasesxMaestro=function(datos){
     return prometelo(datos).then(function (result) {
         return result;
@@ -64,37 +85,50 @@ module.exports.iniciarClase= async function(datos,token){
         var horaf=Date.parse('01/01/2011 '+respuesta.horariofin);
         if (hoy>horai&&hoy<horaf) {
             eshoy=true;
+            console.log("ES HOY");
         }
        } 
     });
     if (eshoy) {
-    var alumnxs= await posteameloAlumnos(respuesta.alumnosins).then(result=>{
+    var alumnxs= await posteameloAlumnos(JSON.stringify({msg:respuesta.alumnosins.toString()})).then(result=>{
         return result;
     });
-    var resx= await metemelaClase(respuesta,token);
+    var codiguin=generarCodigo();
+    var resx= await metemelaClase(respuesta,token,codiguin);
     if (resx.res=='true') {
         return {res:'true',
-                alumnos:alumnxs};
+                alumnos:alumnxs,
+                codigo:codiguin};
     }else{
         return resx;
     }
     }else{
-     throw new Error({status:"403",
-             message:"No puede iniciar esta clase por que aún no es hora."} );   
+     throw new Error("No puede iniciar esta clase por que aún no es hora.");   
     }
 }
-function metemelaClase(clase,token){
+async function metemelaClase(clase,token,code){
 var clase= new Asistencia({id:clase.id,
-                           nombre:clase.nombre,
-                           idmaestro:token.id,
+                           codigo:code,
+                           idmaestro:token.authData.id,
+                           nombre:clase.nombre
                            });
+console.log("MONGOOSE: "+clase);
     try {
-        clase.save();    
+       await clase.save();    
         return {res:'true'};
     } catch (err) {
         return {res:'false',
                 error:err};
     }
+}
+function generarCodigo(){
+    var result           = '';
+   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+   var charactersLength = characters.length;
+   for ( var i = 0; i < 5; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
 }
 function posteameloAlumnos(datos){
     var options={

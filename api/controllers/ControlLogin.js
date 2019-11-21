@@ -30,6 +30,6 @@ var condicion=await Autenticacion.autenticar(datos);
     res.status(403).json(error.message);    
     }
     else{
-        res.status(500).json({message:'Error al intentar hacer login'});}
+        res.status(500).json({message:error.message});}
 } 
 }

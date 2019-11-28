@@ -1,5 +1,6 @@
 const Raa= require("../modelo/RegistrarAsistencia_alumno");
 const token= require("../token");
+
 module.exports.comprobarClaseIniciada=async function(req,res){
     var validacion=await token.validateToken(req.token);
     if (validacion.error=='undefined') {

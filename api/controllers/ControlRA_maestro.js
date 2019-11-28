@@ -1,5 +1,6 @@
 const Ram= require("../modelo/RegistrarAsistencia_maestro");
 const token= require("../token");
+
 module.exports.registrarAsistencia=async function(req,res){
     var validacion=await token.validateToken(req.token);
     var body=req.body;

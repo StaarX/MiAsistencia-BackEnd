@@ -61,6 +61,7 @@ var validacion=await token.validateToken(req.token);
                 res.status(200).json({estado:resp.datos.estado,
                                       asistentes:resp.datos.asistentes,
                                       clase:resp.clasex,
+                                      codigo:resp.datos.codigo,
                                       alumnos:resp.alumnxos});
             }else{
                 res.status(403).json({message:'No tiene ninguna clase iniciada'});

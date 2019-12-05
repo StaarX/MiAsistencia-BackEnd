@@ -10,8 +10,9 @@ module.exports.comprobarClaseIniciada=async function(idA){
         console.log("DEBUUG: "+clasx[index].id+","+clasx[index].maestro);
         var findeado= await Asistencia.findOne({id:clasx[index].id,idmaestro:clasx[index].maestro,estado:'Iniciada'}, function(err, obj){
             return obj;
-        });
-        console.log(findeado);
+        });  
+     } 
+     console.log(findeado);
         if (findeado!='null') {
             return {status:'200',
                     datos:findeado};
@@ -19,8 +20,6 @@ module.exports.comprobarClaseIniciada=async function(idA){
             return {status:'403',
                     msg:'No hay clase iniciada'};
         } 
-         
-     } 
     
 }
 module.exports.registrarAsistencia=async function(idA,idC,idM,codigo){

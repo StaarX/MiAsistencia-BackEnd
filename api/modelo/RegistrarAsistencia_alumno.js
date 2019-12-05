@@ -13,7 +13,7 @@ module.exports.comprobarClaseIniciada=async function(idA){
         });  
      } 
      console.log(findeado);
-        if (findeado!='null') {
+        if (findeado!=null) {
             return {status:'200',
                     datos:findeado};
         }else{

@@ -27,7 +27,7 @@ router.get('/maestro/reporte',token.checkToken,ControlReportesAs.obtenerReporte)
 router.get('/maestro/horario',token.checkToken,ControlMaestro.obtenerHorario);
 //estudiantes
 router.get('/estudiante/comprobarClaseIniciada',token.checkToken,ControlRA_alumno.comprobarClaseIniciada);
-router.get('/estudiante/registrarAsistencia',token.checkToken,ControlRA_alumno.registrarAsistencia);
+router.post('/estudiante/registrarAsistencia',token.checkToken,ControlRA_alumno.registrarAsistencia);
 //estudiante/horario
 router.get('/estudiante/horario',token.checkToken,ControlAlumno.obtenerHorario);
 

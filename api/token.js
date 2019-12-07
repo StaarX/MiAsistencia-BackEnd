@@ -20,7 +20,7 @@ exports.validateToken = async function(token) {
     return respuesta; 
     }
 exports.checkToken = (req, res, next) => {
-    const header = req.headers['xx-token-xx'];
+    const header = req.headers.authorization;
     if(typeof header !== 'undefined') {
         req.token = header;
         next();

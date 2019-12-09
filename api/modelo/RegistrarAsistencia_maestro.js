@@ -14,12 +14,12 @@ module.exports.registrarAsistencia=async function(idA,idMa){
     });
     console.log("ENCONTRADOOO: "+findeado);
     if (findeado!=null) { 
-    findeado.asistentes.forEach(element => {
-        if (element==idA) {
+    for (let index = 0; index < findeado.asistentes.length; index++) {
+        if (findeado.asistentes[index]==idA) {
             return {status:'403',
                     message:'Este alumno ya registró su asistencia.'}
-        }
-    }); 
+        }     
+    }
     findeado.asistentes.push(idA);
     await findeado.save();
     return {status:'200',

@@ -26,12 +26,12 @@ module.exports.registrarAsistencia=async function(idA,idC,idM,codigo){
     var findeado=await Asistencia.findOne({id:idC,idmaestro:idM,estado:'Iniciada'},function(err,obj){
     });
     if (findeado!=null) {
-        findeado.asistentes.forEach(element => {
-            if (element==idA) {
+        for (let index = 0; index < findeado.asistentes.length; index++) {
+            if (findeado.asistentes[index]==idA) {
                 return {status:'403',
                         message:'Este alumno ya registró su asistencia.'}
-            }
-        });
+            }     
+        }
         if (findeado.codigo==codigo) {
             findeado.asistentes.push(idA);
             var result= await findeado.save();

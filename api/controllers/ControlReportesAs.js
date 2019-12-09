@@ -3,11 +3,10 @@ const token= require("../token");
 
 module.exports.obtenerReporte=async function(req,res){
     var validacion=await token.validateToken(req.token);
-    var body=req.body;
-    console.log(validacion.authData.id);
+    
     if (validacion.error=='undefined') {
         try {
-            var resp= await Ra.obtenerReporte(validacion.authData.id);
+            var resp= await Ra.obtenerReporte(req.params.id);
             console.log(resp);
             res.status(200).json(resp);
         } catch (error) {

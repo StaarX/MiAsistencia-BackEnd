@@ -22,13 +22,13 @@ router.post('/maestro/registrarAsistencia',token.checkToken,ControlRA_maestro.re
 router.post('/maestro/finalizarClase',token.checkToken,ControlRA_maestro.finalizarClase);
 router.post('/maestro/eliminarAsistencia',token.checkToken,ControlRA_maestro.eliminarAsistencia);
 //maestro/reportes
-router.get('/maestro/reporte',token.checkToken,ControlReportesAs.obtenerReporte);
+router.get('/maestro/reporte/:id',token.checkToken,ControlReportesAs.obtenerReporte);
 //maestro/horario
-router.get('/maestro/horario',token.checkToken,ControlMaestro.obtenerHorario);
+router.get('/maestro/horario/',token.checkToken,ControlMaestro.obtenerHorario);
 //estudiantes
 router.get('/estudiante/comprobarClaseIniciada',token.checkToken,ControlRA_alumno.comprobarClaseIniciada);
 router.post('/estudiante/registrarAsistencia',token.checkToken,ControlRA_alumno.registrarAsistencia);
 //estudiante/horario
-router.get('/estudiante/horario',token.checkToken,ControlAlumno.obtenerHorario);
+router.get('/estudiante/horario/',token.checkToken,ControlAlumno.obtenerHorario);
 
 module.exports=router;

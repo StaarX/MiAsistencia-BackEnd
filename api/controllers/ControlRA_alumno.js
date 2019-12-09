@@ -34,9 +34,10 @@ module.exports.registrarAsistencia=async function(req,res){
     if (validacion.error=='undefined') {
     try {
         var resp= await Raa.registrarAsistencia(validacion.authData.id,body.clase,body.maestro,body.codigo);
-        if (resp.res=='true') {
+        if (resp.status=='200') {
             res.status(200).json({message:'OK'}); 
-        }else{
+        }
+        if(resp.status=='403'){
             res.status(403).json({message: resp.message});
         }
     } catch (error) {

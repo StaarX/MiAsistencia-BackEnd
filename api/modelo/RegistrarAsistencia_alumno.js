@@ -25,16 +25,28 @@ module.exports.comprobarClaseIniciada=async function(idA){
 module.exports.registrarAsistencia=async function(idA,idC,idM,codigo){
     var findeado=await Asistencia.findOne({id:idC,idmaestro:idM,estado:'Iniciada'},function(err,obj){
     });
-    console.log("ENCONTRADOOO: "+findeado);
-    if (findeado.codigo==codigo) {
-        findeado.asistentes.push(idA);
-        var result= await findeado.save();
-        return  {res:'true',
-                 resultado:result};   
+    if (findeado!=null) {
+        findeado.asistentes.forEach(element => {
+            if (element==idA) {
+                return {status:'403',
+                        message:'Este alumno ya registró su asistencia.'}
+            }
+        });
+        if (findeado.codigo==codigo) {
+            findeado.asistentes.push(idA);
+            var result= await findeado.save();
+            return  {status:'200',
+                     resultado:result};   
+        }else{
+            return  {status:'403',
+                     message:'El codigo es incorrecto.'};
+        }    
     }else{
-        return  {res:'false',
-                 message:'El codigo es incorrecto.'};
+            return {status:'403',
+                    message:'No hay clase iniciada.'}
     }
+    console.log("ENCONTRADOOO: "+findeado);
+    
 }
 
 function prometeloClase(datos){

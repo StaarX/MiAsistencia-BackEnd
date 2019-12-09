@@ -9,7 +9,12 @@ module.exports.registrarAsistencia=async function(req,res){
     try {
         var resp= await Ram.registrarAsistencia(body.id,validacion.authData.id);
         console.log(resp);
-        res.status(200).json({message:'OK'});
+        if (resp.status=='200') {   
+        res.status(200).json({message:'OK'}); 
+        }
+        if (resp.status=='403') {
+        res.status(403).json(resp);
+        }
     } catch (error) {
         res.status(500).json(error.message);
     }

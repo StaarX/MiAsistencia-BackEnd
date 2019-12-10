@@ -6,7 +6,7 @@ module.exports.obtenerReporte=async function(req,res){
     
     if (validacion.error=='undefined') {
         try {
-            var resp= await Ra.obtenerReporte(req.params.id);
+            var resp= await Ra.obtenerReporte(validacion.authData.id);
             console.log(resp);
             res.status(200).json(resp);
         } catch (error) {

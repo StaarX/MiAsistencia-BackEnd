@@ -63,11 +63,26 @@ var validacion=await token.validateToken(req.token);
         try {
             var resp= await Ram.comprobarClaseIniciada(validacion.authData.id);   
             if (resp.status=='200') {
+                var aux=[];
+                for (let index = 0; index < resp.alumnxos.length; index++) {
+                    aux.push({id:resp.alumnxos[index].id,
+                        nombre:resp.alumnxos[index].nombre,
+                        asistio:'false'
+             });
+                }
+                for (let index = 0; index < aux.length; index++) {
+                    for (let indets = 0; indets < resp.datos.asistentes.length; indets++) {
+                        if (aux[index].id==resp.datos.asistentes[indets]) {
+                         aux[index].asistio='true';  
+                        }
+                    }
+                    
+                }
+
                 res.status(200).json({estado:resp.datos.estado,
-                                      asistentes:resp.datos.asistentes,
+                                      asistentes:aux,
                                       clase:resp.clasex,
-                                      codigo:resp.datos.codigo,
-                                      alumnos:resp.alumnxos});
+                                      codigo:resp.datos.codigo});
             }else{
                 res.status(403).json({message:'No tiene ninguna clase iniciada'});
             }
